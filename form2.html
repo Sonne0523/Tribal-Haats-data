@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demographic Profile Form - Page 2</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="form-wrapper">
+      <h1>Registration Form - Page 2</h1>
+      <form id="form2" name="submit-to-google-sheet">
+        <!-- Mode of Transaction -->
+        <div class="form-group">
+          <label for="transaction_mode">Mode of Transaction</label>
+          <select id="transaction_mode" name="transaction_mode" required>
+            <option value="">--Select--</option>
+            <option value="Cash">Cash</option>
+            <option value="UPI">UPI</option>
+            <option value="Bank Transfer">Bank Transfer</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <!-- Position in Haat -->
+        <div class="form-group">
+          <label for="position_haat">Position in Haat</label>
+          <input
+            type="text"
+            id="position_haat"
+            name="position_haat"
+            placeholder="Enter your position in haat"
+            required
+          />
+        </div>
+
+        <!-- Type of Vendor -->
+        <div class="form-group">
+          <label for="vendor_type">Type of Vendor</label>
+          <select id="vendor_type" name="vendor_type" required>
+            <option value="">--Select--</option>
+            <option value="Farmer">Farmer</option>
+            <option value="Artisan">Artisan</option>
+            <option value="Trader">Trader</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <!-- Why not Digital Transaction -->
+        <div class="form-group">
+          <label for="no_digital_reason">Why not Digital Transaction?</label>
+          <textarea
+            id="no_digital_reason"
+            name="no_digital_reason"
+            placeholder="Enter reason if not using digital transaction"
+            rows="3"
+          ></textarea>
+        </div>
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <script>
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbwXociNCr1wOAxWYpai1sahrhyq36J_QvHpJWim-60c4CHVjM7edrmCcKAym0ZmOI0q/exec";
+      const form = document.forms["submit-to-google-sheet"];
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        // Get data from localStorage (Page 1)
+        const name = localStorage.getItem("name");
+        const age = localStorage.getItem("age");
+        const gender = localStorage.getItem("gender");
+        const location = localStorage.getItem("location");
+        const vendor = localStorage.getItem("vendor");
+
+        // Get data from Page 2
+        const transaction_mode =
+          document.getElementById("transaction_mode").value;
+        const position_haat = document.getElementById("position_haat").value;
+        const vendor_type = document.getElementById("vendor_type").value;
+        const no_digital_reason =
+          document.getElementById("no_digital_reason").value;
+
+        // Prepare form data
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("age", age);
+        formData.append("gender", gender);
+        formData.append("location", location);
+        formData.append("vendor", vendor);
+        formData.append("transaction_mode", transaction_mode);
+        formData.append("position_haat", position_haat);
+        formData.append("vendor_type", vendor_type);
+        formData.append("no_digital_reason", no_digital_reason);
+
+        // Submit to Google Sheet
+        fetch(scriptURL, { method: "POST", body: formData })
+          .then((response) => {
+            localStorage.clear(); // Clear stored data
+            window.location.href = "success.html"; // redirect after submission
+          })
+          .catch((error) => alert("❌ Error: " + error.message));
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demographic Profile Form - Page 1</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="form-wrapper">
+      <h1>Registration Form - Page 1</h1>
+      <form id="form1">
+        <!-- Full Name -->
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Enter your full name"
+            required
+          />
+        </div>
+
+        <!-- Age -->
+        <div class="form-group">
+          <label for="age">Age</label>
+          <input
+            type="number"
+            id="age"
+            name="age"
+            placeholder="Enter your age"
+            required
+          />
+        </div>
+
+        <!-- Gender -->
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <select id="gender" name="gender" required>
+            <option value="">--Select--</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <!-- Location -->
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input
+            type="text"
+            id="location"
+            name="location"
+            placeholder="Enter your location"
+            required
+          />
+        </div>
+
+        <!-- Vendor No -->
+        <div class="form-group">
+          <label for="vendor">Vendor No</label>
+          <input
+            type="text"
+            id="vendor"
+            name="vendor"
+            placeholder="Enter vendor number"
+            required
+          />
+        </div>
+
+        <button type="submit">Next</button>
+      </form>
+    </div>
+
+    <script>
+      document.getElementById("form1").addEventListener("submit", function (e) {
+        e.preventDefault();
+        // Save form data in localStorage
+        localStorage.setItem("name", document.getElementById("name").value);
+        localStorage.setItem("age", document.getElementById("age").value);
+        localStorage.setItem("gender", document.getElementById("gender").value);
+        localStorage.setItem(
+          "location",
+          document.getElementById("location").value
+        );
+        localStorage.setItem("vendor", document.getElementById("vendor").value);
+        // Redirect to next page
+        window.location.href = "form2.html";
+      });
+    </script>
+  </body>
+</html>
